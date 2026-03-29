@@ -1,0 +1,473 @@
+import React, { useMemo, useState } from 'react';
+
+const records = [
+  {
+    slug: 'hori-koya-2025-08-28',
+    title: '堀浩哉　鑑賞記録　2025.8.28',
+    date: '2025-08-28',
+    tags: ['堀浩哉', '絵画', '展覧会', '二人鑑賞', '天★Que'],
+    images: [
+      'https://placehold.co/1200x800?text=%E5%86%99%E7%9C%9F%E3%82%921',
+      'https://placehold.co/1200x800?text=%E5%86%99%E7%9C%9F%E3%82%922',
+    ],
+    content: `堀浩哉　鑑賞記録　2025.8.28
+
+展示をみる前のシエニーさんのイメージ　美共闘　
+
+李禹煥の簡易的なバージョン 
+
+シエ 
+
+なんでキャンバスに紙をペタペタ貼ってから絵を描いてるんだろう。 
+
+（大きくちぎった和紙が隙間なくキャンバスを覆う、キャンバスに直接描いているものはない。しかし小作品はキャンバスはなく紙に描かれている） 
+
+お札みたいに何かを押さえ込んでるような行為と筆触の儀式的な感じ、お祓いとかの榊を振ってるような筆運びをはじめに感じた 
+
+村井 
+
+展示されてる絵に共通の印象として、海辺や川のイメージがある。 
+
+三途の川を渡る最中に、霧がかかっていたり。それで、オイルパステルの黒い線は、絵の一番手前（こちら側）にかかる草のよう。 
+
+その草越しから、奥の川や海を見ているかんじ。その川や海の水平線は見えず、手前の水面を見下ろしてズームアップしたような視界が特徴的。 
+
+シエニー 
+
+（わかったぞ！！！ってかんじ！） 
+
+私は、絵（キャンバス）を包んでいるように思った。どうしてもキャンバスに貼り付けてる紙のテクスチャーが目立つ。  
+
+キャンバスなのに和紙のようなものがキャンバス目を隠すように貼られているのが一番に気になった。 
+
+これが絵ってバレないように、絵を描いてる。 
+
+これの中がほんとの絵で、お札を貼って封印してるような… 
+
+黒い線（オイルパステル）も、何かを描いているようには見えない。これは絵です、て見せるためのカモフラージュ。 
+
+キャンバスを縛ってるかんじ。 
+
+絵具がのってて、線がある、＝絵と思わせてる。 
+
+おとりの絵をのせている。 
+
+とにかく気になったのは、キャンバスに紙を貼って覆ってるところ。 
+
+60年代、絵を描いてるのがダメ、ということがまだ残っているっぽい。 
+
+アンデパンダン展でも、絵を出すのはダサかった。その時に活動していた作家の今をチェックしてみたことがあるけど、老人になっても活動していて、でも普通には絵を描いてなかった。仏像画？を描いていた。（桜井孝身） 
+
+そういう、素直じゃない、改造された人の絵って感じがする。だから、ステートメントで、絵を請け負っていい、と書いてある。 
+
+村井 
+
+堀さんのパフォーマンスに昔何度か参加したことがあって、そのうち、色んな人が書いた文章がポスターみたくずらりと壁に貼ってある部屋で、真ん中に大きな絵の木枠、があって、レボリューション！と言いながら木枠に布をかけていく、というのだった。キャンバスの木枠と、そこにかける布という関係性は、堀さんが昔からよく扱うことだと思う。 
+
+初期の、木枠に布が外されている作品とかもだけど。今回のシエニーさんの言う、絵を隠している、というのも、木枠の上に布や紙で覆うということに着目してるよね。 
+
+シエニー 
+
+うん。覆ってる。本物の絵を隠してる。 
+
+絵狩り、みたいなのあったんじゃない？こいつ、描いてんぞ！口聞かねえー。みたいな。 
+
+村井 
+
+じゃあ、裏の部屋にあるドローイングは？ 
+
+本当の絵がない？ 
+
+梱包だけあるかんじ？ 
+
+シエニー 
+
+堀さんの絵は、紙に描いて、あとでそれをキャンバスに貼ってるよね。だから、ドローイングみたく、紙だけの状態も制作中ある…？ 
+
+村井 
+
+じゃあ、ダミーの絵を先に描いてるってこと？笑 
+
+包んでる、封印してるかんじは、キャンバスの上に紙が貼られているというだけじゃなく、画面の黒い線の包んでるような軌道にも表れてるかもね。 
+
+でも、包んでるけど、閉じてない気がする。 
+
+なんで閉じたない、と感じるのか…。 
+
+シエニー 
+
+この線は、紙の状態で、まず下に敷いて描いてるのかな。 
+
+遠くからみると、さささって描いたような引っ掻き傷のような線だけど、身体をもって近くからみると、そんな細くなくて、手を伸ばした距離や描いた苦労を感じる。 
+
+こう描いては、一回止まって、また描いて、みたいな、近くで線をみるとそういう労働の痕跡を感じる。 
+
+死体遺棄みたいな。掘った穴（和紙の下）に死体（絵）のかかと、カーディガンのすそ、はみ出ないように穴に入れる。物じゃなく、オーラみたいなのを閉じこめてるなら、この形（黒い線の軌道）になってもいいかも。線でオーラをホールドする感じ。 
+
+※シエニーのホールド実践動画あり 
+
+村井 
+
+（線は）いかつい感じね。 
+
+よくみると、途切れてたりね。 
+
+シエニー 
+
+時には寝っ転がって、自分の手の長さがちょうど反映してる。 
+
+村井 
+
+おれは堀さんの絵、やっぱり閉じてるとは思わない。真ん中から、波動のように外へ広がっていくような形がみえる。 
+
+あと、堀さんの絵は全て、やっぱり海がみえて、絵に描かれた海に対しての鑑賞者の位置が強く意識されると思う。 
+
+真ん中が膨れた唇みたいになってる。その周りをかなり、、、開いてもないかも。開いてるとしたら波打ってる線が釣り針状になってなくてフニャンと柔らかいと思う。鑑賞者の位置が開かれてる場所にある？ 
+
+絵の中に入った時に野原みたいな空間。 
+
+鑑賞者の位置を実感しちゃう絵。絵と展示場所の間に黒い線があるような感じ。黒い線はニラみたいな感じで柔らかく鑑賞体験は開かれている。 
+
+鑑賞者と海の間にちょうど黒い線がある。 
+
+鑑賞者は、黒い線をまたがないと、その奥に描かれた海へ行けない。黒い線越しに、のぞくような海をみる。でも、のぞくというよりは、開けている。黒い線も隙間がたくさんある。 
+
+そして、視点は局所的で、海の地平線はみえずに、足元の水面をみている。 
+
+村井 
+
+この絵は、銀色（白）のまだらなタッチが、霧のようで、草をかき分けながら霧の中の川を歩いてるような。 
+
+シエニー 
+
+黒い線はどこにあるの？ 
+
+村井 
+
+黒い線はちょうど、展示場と絵の境界。 
+
+シエ 
+
+じゃあこの太い赤は？太い線を見ると黒い線より手前にある。黒い線を絵と鑑賞者の境界線だとするとさ、この赤はこちら側に絵が飛び出している感じ？ 
+
+村井 
+
+でもその太い筆触を見ると境界線もただの絵になっちゃう。もうちょっとみないとわからんな。（銀色に黒、赤の絵）このとき村井赤い線、飛び出してきてるわけじゃないかもとのこと 
+
+シエニー 
+
+シエ、向こうにもこの世界があるんじゃない？ 
+
+キャンバスに赤い絵の具がのってて、その上に黒い線が引いてあって、一番手前に銀色がある世界。 
+
+【こっちのせかい】 
+
+シエ村井（鑑賞者）→赤→境界線の黒い茂み→銀色の海 
+
+【あっちの世界】 
+
+赤色の海←境界線の黒い茂み←銀←偽シエ偽村井（偽鑑賞者） 
+
+絵のあっち側にも人がいて、私たちと同じようなことを言ってる。あっちにも話してる人がいて、白が邪魔で奥がみえないな〜とか。笑 
+
+村井 
+
+赤は、物理的で、独立して動きそう。黒い線の手前にあって、、光の盲点？ 
+
+もっと弱いかんじ。目にみえるなかで、見えないところ？潰れてるところ。 
+
+日光とかをみたあとに残るやつ。 
+
+それが、線と透過してる。 
+
+赤はこんなに強烈な赤なのに、画面上では弱い。他の要素、黒い線などは身体に働きかける。そこに没入してるかんじ。でも、赤は、目に働きかける。絵を見る時の盲点。 
+
+川岸（絵の絵手前）だと、赤の盲点は手前にあって、川（絵の銀の線）に入り込むと、黒の奥にあるようになる。 
+
+シエ 
+
+赤は目に張り付いているかんじ？？ 
+
+シエニー 
+
+（手前の絵の具は目に直接物質的に働きかけていると仮定するとしたら） 
+
+この絵は、目に水が入ったみたいじゃない？ 
+
+村井 
+
+そういう痛さがあるね。 
+
+シエニーさんは、これらの絵を梱包されてる、閉じこめられてる絵とみるんだよね。最小限の絵っぽさとして、手前に太い線を描いてると。たしかに、近づくと、労働感、閉じこめてる感はあるね。 
+
+これは、おれはアーチ状の草が連続してて、それを俯瞰してみてるみたい。 
+
+シエニー 
+
+私はこれはめちゃくちゃ封印して、奥のたくさんの黒い線が、少し隙間からみえてる。 
+
+ところで、ぱっと見、一番インパクトのある絵、強い絵ってどれだと思う？ 
+
+私はこれ。 
+
+村井 
+
+おれは、これかな 
+
+漫画のオノマトペみたいな赤い線で文字みたいにも一瞬みえるけど、赤がすごく強く見える。 
+
+奥の部屋の小さい絵は、水平の線（海）がないから、入っていけない。 
+
+帰る前にコレクターごっこした 
+
+シエニさんが購入したのはこれ 
+
+村井的には、キャンバスのあつみがあるほうが物としていいと思ったが、シエニーは紙の方がパフォーマンス的で60年台の仕事の雰囲気を感じられるからこれがいいらしい。 
+
+シエ 
+
+カビのようなものが見えるのもいい。何か滲み出てくるものを押さえ込んでる感じがする。今日思ったことをインスタントみたいに復元できそう 
+
+これもはじめ悩んでた 
+
+おれはこの絵かな。 
+
+でも場所があったら 
+
+この絵が本当はいいかな。 
+
+堀さんぽさ、力強さがやっぱあった方がいい。 
+
+村井 
+
+こうやってコレクターって絵を選んでるのかな 
+
+シエ 
+
+たのしいね 
+
+今回は、お互いの視点を共有し合い、質問や指摘をしながら引き出し合いながら、最終的にはそれぞれ独自の見方を深めていくような鑑賞体験だった。 
+
+通常、二人で同じ作品を見るときは、話し合いながら共通の理解や解釈を築いていくことが多いが、今回はそうではなく、個人の鑑賞をより豊かに育てる方向に向かった。 
+
+また、コレクターのようにどの絵を所有したいかという同じ観点で作品を見たときもそれぞれの違いがあっておもしろかった。 
+
+シエはこの鑑賞体験を思い出させてくれるような作品または自分の理解やシナリオに紐付けた作品を、 
+
+村井は作家らしさ、その作品を見れば即座にその作家や制作行為を思い起こすような、特徴的でキャラクター性の際立った作品を、それぞれ今回空想購入した。 
+
+自分たちのライトに別のモードをつけた例`,
+  },
+];
+
+const aboutText = `今日が鑑賞ハピネスデイ。隕石のように登場、天★Queと申します！天★Queは村井祐希とシエニーチュアンからなる鑑賞ユニットから始まった、あなたの鑑賞を手伝うグッズを制作・販売する不思議な通販会社です。この２人の修行方法が変わってる！不思議グッズの源である鑑賞エネルギーを集めるために日々些細なことも文字起こし、なんでも記録！報告！作品やみんなと話したことをみえる化しちゃう、鑑賞体験を鑑賞できるかたちに。硬軟とりまぜたトキメキの世界だ！`;
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`;
+}
+
+function Header({ current, setCurrent }) {
+  const items = [
+    ['top', 'TOP'],
+    ['records', '鑑賞記録一覧'],
+    ['about', 'ABOUT'],
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        <button onClick={() => setCurrent({ type: 'top' })} className="text-xl font-bold tracking-wide text-yellow-300">
+          天★Que
+        </button>
+        <nav className="flex gap-2 text-sm">
+          {items.map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setCurrent({ type: key })}
+              className={`rounded-full px-4 py-2 transition ${current.type === key ? 'bg-yellow-300 text-black' : 'bg-zinc-900 text-zinc-200 hover:bg-zinc-800'}`}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function TopPage({ setCurrent }) {
+  const latest = records.slice(0, 5);
+  return (
+    <div className="space-y-12">
+      <section className="rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950 p-8 shadow-2xl">
+        <p className="mb-3 text-sm tracking-[0.2em] text-yellow-300">TODAY IS KANSHO HAPPINESS DAY</p>
+        <h1 className="mb-4 text-4xl font-bold leading-tight md:text-6xl">天★Que</h1>
+        <p className="max-w-3xl whitespace-pre-wrap text-base leading-8 text-zinc-200 md:text-lg">{aboutText}</p>
+      </section>
+
+      <section>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">最新鑑賞記録</h2>
+          <button onClick={() => setCurrent({ type: 'records' })} className="rounded-full border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-900">
+            すべて見る
+          </button>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {latest.map((record) => (
+            <article key={record.slug} className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 shadow-xl">
+              <img src={record.images[0]} alt={record.title} className="h-52 w-full object-cover" />
+              <div className="space-y-3 p-5">
+                <p className="text-sm text-zinc-400">{formatDate(record.date)}</p>
+                <h3 className="text-xl font-bold leading-snug">{record.title}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {record.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-300">#{tag}</span>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setCurrent({ type: 'record', slug: record.slug })}
+                  className="rounded-full bg-yellow-300 px-4 py-2 text-sm font-semibold text-black"
+                >
+                  読む
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function RecordsPage({ setCurrent }) {
+  const [selectedTag, setSelectedTag] = useState('all');
+  const allTags = useMemo(() => ['all', ...Array.from(new Set(records.flatMap((r) => r.tags)))], []);
+  const filtered = selectedTag === 'all' ? records : records.filter((r) => r.tags.includes(selectedTag));
+
+  return (
+    <div className="space-y-8">
+      <div>
+        <h1 className="mb-4 text-3xl font-bold">鑑賞記録一覧</h1>
+        <div className="flex flex-wrap gap-2">
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setSelectedTag(tag)}
+              className={`rounded-full px-4 py-2 text-sm ${selectedTag === tag ? 'bg-yellow-300 text-black' : 'bg-zinc-900 text-zinc-200 hover:bg-zinc-800'}`}
+            >
+              {tag === 'all' ? 'すべて' : `#${tag}`}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        {filtered.map((record) => (
+          <article key={record.slug} className="grid gap-4 rounded-3xl border border-zinc-800 bg-zinc-900 p-4 md:grid-cols-[280px_1fr]">
+            <img src={record.images[0]} alt={record.title} className="h-48 w-full rounded-2xl object-cover" />
+            <div className="space-y-3">
+              <p className="text-sm text-zinc-400">{formatDate(record.date)}</p>
+              <h2 className="text-2xl font-bold">{record.title}</h2>
+              <div className="flex flex-wrap gap-2">
+                {record.tags.map((tag) => (
+                  <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-300">#{tag}</span>
+                ))}
+              </div>
+              <button
+                onClick={() => setCurrent({ type: 'record', slug: record.slug })}
+                className="rounded-full bg-yellow-300 px-4 py-2 text-sm font-semibold text-black"
+              >
+                記録を読む
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RecordPage({ slug, setCurrent }) {
+  const index = records.findIndex((r) => r.slug === slug);
+  const record = records[index];
+  const prev = records[index + 1];
+  const next = records[index - 1];
+
+  if (!record) return <div>記事が見つかりません。</div>;
+
+  return (
+    <article className="space-y-8">
+      <button onClick={() => setCurrent({ type: 'records' })} className="text-sm text-yellow-300 hover:underline">
+        ← 鑑賞記録一覧にもどる
+      </button>
+
+      <div className="space-y-4 rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+        <p className="text-sm text-zinc-400">{formatDate(record.date)}</p>
+        <h1 className="text-3xl font-bold leading-tight md:text-5xl">{record.title}</h1>
+        <div className="flex flex-wrap gap-2">
+          {record.tags.map((tag) => (
+            <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-300">#{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        {record.images.map((src, i) => (
+          <img key={i} src={src} alt={`${record.title} ${i + 1}`} className="w-full rounded-3xl border border-zinc-800 object-cover" />
+        ))}
+      </div>
+
+      <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="whitespace-pre-wrap text-sm leading-8 text-zinc-100 md:text-base">{record.content}</div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <button
+          disabled={!prev}
+          onClick={() => prev && setCurrent({ type: 'record', slug: prev.slug })}
+          className="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 text-left disabled:opacity-40"
+        >
+          <p className="mb-2 text-xs text-zinc-500">前の記事</p>
+          <p>{prev ? prev.title : 'なし'}</p>
+        </button>
+        <button
+          disabled={!next}
+          onClick={() => next && setCurrent({ type: 'record', slug: next.slug })}
+          className="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 text-left disabled:opacity-40"
+        >
+          <p className="mb-2 text-xs text-zinc-500">次の記事</p>
+          <p>{next ? next.title : 'なし'}</p>
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function AboutPage() {
+  return (
+    <div className="space-y-8">
+      <section className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
+        <h1 className="mb-6 text-3xl font-bold">ABOUT</h1>
+        <h2 className="mb-4 text-xl font-semibold text-yellow-300">天★Queとは</h2>
+        <p className="whitespace-pre-wrap text-base leading-8 text-zinc-100">{aboutText}</p>
+      </section>
+    </div>
+  );
+}
+
+export default function TenqueSiteMockup() {
+  const [current, setCurrent] = useState({ type: 'top' });
+
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-50">
+      <Header current={current} setCurrent={setCurrent} />
+      <main className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-10">
+        {current.type === 'top' && <TopPage setCurrent={setCurrent} />}
+        {current.type === 'records' && <RecordsPage setCurrent={setCurrent} />}
+        {current.type === 'record' && <RecordPage slug={current.slug} setCurrent={setCurrent} />}
+        {current.type === 'about' && <AboutPage />}
+      </main>
+    </div>
+  );
+}
