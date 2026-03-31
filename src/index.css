@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #5A2EFF;
+  color: white;
+}
+
+a {
+  color: #C4D455;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.7;
+}

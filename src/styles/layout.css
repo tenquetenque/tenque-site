@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  background: #3a2fff;
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f5ff3a;
+  color: #000;
+}
+
+.hamburger {
+  display: none;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: black;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+}
