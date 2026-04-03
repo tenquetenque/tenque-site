@@ -1,61 +1,29 @@
-body {
-  background: red;
-}
 .home {
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(#5A2EFF, #000000);
-}
-
-/* 背景の空っぽいレイヤー */
-.home::before {
-  content: "";
-  position: absolute;
-  top: 0;          /* ←これ重要（追加） */
-  left: 0;         /* ←これ重要（追加） */
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, red 6px, transparent 6px);
-  background-size: 60px 60px;
-  animation: moveBg 2s linear infinite;
-  opacity: 1;
-  z-index: 0;      /* ←追加 */
-}
-
-/* 動き */
-@keyframes moveBg {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-100px, -100px);
-  }
+  background: #0a0a0a;
+  color: white;
+  padding: 20px;
 }
 
 .hero {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  top: 40%;
-  transform: translateY(-50%);
+  background: linear-gradient(135deg, #4b3cff, #eaff00);
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 30px;
 }
 
-.title {
-  font-size: 48px;
-  color: #C4D455;
+.hiroba {
+  height: 200px;
+  background: #111;
+  margin-top: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.subtitle {
-  font-size: 18px;
-  margin-top: 10px;
-}
-.home::after {
-  content: "TEST";
-  position: absolute;
-  top: 100px;
-  left: 100px;
-  color: white;
-  font-size: 40px;
-  z-index: 9999;
+.block {
+  background: #111;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
 }
