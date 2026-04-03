@@ -152,3 +152,47 @@
 .nav {
   display: none;
 }
+.about-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.about-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #eaff00;
+  width: 150px;
+  z-index: 1000;
+}
+.about-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.about-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #eaff00;
+  width: 150px;
+  z-index: 1000;
+}
+
+/* ホバーで表示 */
+.about-wrapper:hover .about-menu {
+  display: block;
+}
+.logo-img {
+  height: 40px;
+  background: transparent;
+}
