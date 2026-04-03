@@ -1,4 +1,16 @@
+import "./Home.css";
+
 function Home() {
-  return <h1>ホーム（天★Que）</h1>;
+  return (
+    <div className="home">
+      <div className="hero">
+        <h1 className="title">天★Que広場</h1>
+        <p className="subtitle">
+          今日が鑑賞ハピネスデイ。
+        </p>
+      </div>
+    </div>
+  );
 }
+
 export default Home;
