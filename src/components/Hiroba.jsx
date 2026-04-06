@@ -8,10 +8,18 @@ function Hiroba({ characters }) {
           style={{
             left: `${char.x}%`,
             top: `${char.y}%`,
-            color: char.color,
           }}
         >
-          {char.emoji}
+          {/* 👇画像に変更 */}
+          <img
+            src={char.emoji}
+            style={{
+              width: "40px",
+              height: "40px",
+              objectFit: "contain"
+            }}
+          />
+
           <div className="bubble">{char.message}</div>
         </div>
       ))}
@@ -20,3 +28,4 @@ function Hiroba({ characters }) {
 }
 
 export default Hiroba;
+import "./Hiroba.css"; // ←これある？

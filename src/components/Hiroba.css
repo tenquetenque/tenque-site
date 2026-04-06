@@ -1,62 +1,22 @@
 .hiroba-container {
-  width: 100%;
-  height: 100%; /* ←これ超重要 */
+  position: absolute;
+  inset: 0;
 
-  background-image: url("../assets/hirobahaikei.jpg");
-  background-size: contain;
+  background-image: url("/images/hirobahaikei.jpg");
+
+  background-size: contain; /* ←ここ戻す */
   background-position: center;
   background-repeat: no-repeat;
 
-  position: relative;
+  background-color: #000; /* ←余白を黒にする（自然） */
 }
 
 /* キャラ */
 .character {
   position: absolute;
-  font-size: 30px;
-}
-.character {
-  position: absolute;
-  font-size: 30px;
 }
 
-/* 影 */
-.character::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  width: 20px;
-  height: 8px;
-  background: rgba(0,0,0,0.3);
-  border-radius: 50%;
-  transform: translateX(-50%);
+.character img {
+  width: 40px;
 }
-.char-select {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
-
-.char-select button {
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* 吹き出し */
-.character {
-  position: absolute;
-  font-size: 30px;
-}
-
-.bubble {
-  background: white;
-  color: black;
-  padding: 5px 10px;
-  border-radius: 10px;
-  margin-top: 5px;
-  white-space: nowrap;
-}
+background-size: 110%;

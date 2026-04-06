@@ -1,88 +1,44 @@
 .char-ui {
   width: 100%;
-  max-width: 160px;
-  background: linear-gradient(#f5f5f5, #e0e0e0);
-  border: 2px solid #aaa;
-  border-radius: 12px;
-  padding: 10px;
-  font-family: "Arial Rounded MT", sans-serif;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* タイトル */
-.char-ui h2 {
-  text-align: center;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-/* メイン */
-.main-box {
+  max-width: 180px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 2px inset #ccc;
-  background: #fafafa;
-  border-radius: 8px;
-  padding: 6px;
 }
 
-/* 👇ここ名前変えた（超重要） */
-.ui-character {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.avatar {
-  font-size: 36px;
-}
-
-/* 横幅統一 */
-.ui-character,
-.palette {
-  width: 100%;
-}
-
-/* パレット */
-.palette {
+/* 👇 iconボックス */
+.icon-box {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 3px;
+  grid-template-columns: repeat(2, 1fr); /* 2列 */
+  gap: 6px;
 }
 
-.color {
-  width: 100%;
-  aspect-ratio: 1;
-  border: 1px solid #888;
-  border-radius: 2px;
+/* 👇 アイコン */
+.icon {
+  width: 40px; /* ←小さく（1/4感） */
+  height: 40px;
+  object-fit: contain;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-/* 名前 */
-.name {
+/* ホバーで拡大 */
+.icon:hover {
+  transform: scale(1.2);
+}
+
+/* 選択中 */
+.icon.active {
+  outline: 2px solid white;
+}
+
+/* 入力 */
+.input-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: 6px;
-}
-
-.name input {
-  width: 100%;
-}
-
-/* ボタン */
-.char-ui button {
-  width: 100%;
-  margin-top: 5px;
-  padding: 5px;
   font-size: 12px;
-  border-radius: 6px;
-  border: 2px solid #aaa;
-  background: linear-gradient(#ffffff, #dcdcdc);
-  cursor: pointer;
 }
 
-.char-ui button:active {
-  transform: translateY(1px);
+.input-group input {
+  padding: 4px;
 }

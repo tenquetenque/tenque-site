@@ -1,83 +1,75 @@
 import { useState } from "react";
 import "./CharacterUI.css";
 
+import img1 from "../assets/characters/オーラありズラ.png";
+import img2 from "../assets/characters/hosi1.png";
+import img3 from "../assets/characters/hosi2.png";
+import img4 from "../assets/characters/hosi3.png";
+import img5 from "../assets/characters/hosi4.png";
+import img6 from "../assets/characters/hosi5.png";
+import img7 from "../assets/characters/hosi6.png";
+import img8 from "../assets/characters/hosi7.png";
+import img9 from "../assets/characters/hosi8.png";
+import img10 from "../assets/characters/hosi9.png";
+import img11 from "../assets/characters/hosi10.png";
+import img12 from "../assets/characters/hosi11.png";
+import img13 from "../assets/characters/hosi12.png";
+import img14 from "../assets/characters/hosi13.png";
+
 export default function CharacterUI({ onChange }) {
-    const characters = [
-    "/src/assets/characters/オーラありズラ.png",
-    "/src/assets/characters/frog.png",
-    "/src/assets/characters/cat.png",
+
+  const characters = [
+    img1,img2,img3,img4,img5,img6,img7,
+    img8,img9,img10,img11,img12,img13,img14
   ];
+
   const [char, setChar] = useState(characters[0]);
-  const colors = ["#f8c8dc","#c8e6ff","#d4f8c8","#fff3b0","#e0c8ff"];
-
-  const [color, setColor] = useState(colors[0]);
-  const [name, setName] = useState("sumaso2");
-
-  function randomize(){
-    setColor(colors[Math.floor(Math.random()*colors.length)]);
-  }
+  const [name, setName] = useState("");
+  const [talk, setTalk] = useState("");
 
   function apply(){
     onChange({
       name,
-      color,
-      char: "૮ ˙Ⱉ˙ ა"
+      char,
+      message: talk
     });
+    setTalk("");
   }
 
   return (
     <div className="char-ui">
 
-      <h2>キャラ選択</h2>
-
-      <div className="main-box">
-        
-        {/* 👇ここ名前変更（超重要） */}
-        <div className="ui-character">
-          <div className="avatar" style={{ color }}>
-            ૮ ˙Ⱉ˙ ა
-          </div>
-          <p>{name}</p>
-        </div>
-
-        <div className="palette">
-          {colors.map((c,i)=>(
-            <div 
-              key={i} 
-              className="color"
-              style={{ background: c }}
-              onClick={()=>setColor(c)}
-            />
-          ))}
-        </div>
-
+      {/* 👇 iconボックス */}
+      <div className="icon-box">
+        {characters.map((c,i)=>(
+          <img
+            key={i}
+            src={c}
+            className={`icon ${char === c ? "active" : ""}`}
+            onClick={()=>setChar(c)}
+          />
+        ))}
       </div>
 
-      {/* スライダー（そのままでもOK） */}
-      <input type="range" />
-
-      {/* 名前 */}
-      <div className="name">
-        <input 
+      {/* 👇 name */}
+      <div className="input-group">
+        <label>name</label>
+        <input
           value={name}
           onChange={(e)=>setName(e.target.value)}
         />
-        <span>タイプ</span>
-        <div 
-          className="color-preview"
-          style={{ background: color }}
+      </div>
+
+      {/* 👇 talk */}
+      <div className="input-group">
+        <label>talk</label>
+        <input
+          value={talk}
+          onChange={(e)=>setTalk(e.target.value)}
         />
       </div>
 
-      {/* 決定ボタン */}
-      <button onClick={apply}>
-        このキャラで決定
-      </button>
-
-      {/* ランダム */}
-      <button onClick={randomize}>
-        キャラランダム変更
-      </button>
+      <button onClick={apply}>送信</button>
 
     </div>
   );
