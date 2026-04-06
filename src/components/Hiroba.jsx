@@ -1,36 +1,20 @@
-import { useState } from "react";
-import "./Hiroba.css";
-
-function Hiroba() {
-  const [position, setPosition] = useState({ x: 150, y: 150 });
-
-  const handleClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    console.log("クリック位置", x, y); // ← デバッグ
-
-    setPosition({ x, y });
-  };
-
+function Hiroba({ characters }) {
   return (
-    <div
-      className="hiroba-container"
-      onClick={handleClick}
-    >
-      <div
-        className="character"
-        style={{
-          position: "absolute",
-          left: position.x + "px",
-          top: position.y + "px",
-          background: "red",
-          zIndex: 9999,
-        }}
-      >
-        🐡
-      </div>
+    <div className="hiroba-container">
+      {characters.map((char) => (
+        <div
+          key={char.id}
+          className="character"
+          style={{
+            left: `${char.x}%`,
+            top: `${char.y}%`,
+            color: char.color,
+          }}
+        >
+          {char.emoji}
+          <div className="bubble">{char.message}</div>
+        </div>
+      ))}
     </div>
   );
 }

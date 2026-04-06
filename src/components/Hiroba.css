@@ -1,15 +1,62 @@
 .hiroba-container {
   width: 100%;
-  height: 100%;
+  height: 100%; /* ←これ超重要 */
 
   background-image: url("../assets/hirobahaikei.jpg");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+
+  position: relative;
 }
 
 /* キャラ */
 .character {
   position: absolute;
   font-size: 30px;
+}
+.character {
+  position: absolute;
+  font-size: 30px;
+}
+
+/* 影 */
+.character::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 20px;
+  height: 8px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+.char-select {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.char-select button {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* 吹き出し */
+.character {
+  position: absolute;
+  font-size: 30px;
+}
+
+.bubble {
+  background: white;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+  white-space: nowrap;
 }
