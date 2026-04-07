@@ -1,7 +1,9 @@
 function Hiroba({ characters }) {
   return (
     <div className="hiroba-container">
-      {characters.map((char) => (
+     {characters
+  .filter((char) => char.emoji && char.name) // ←これ追加
+  .map((char) => (
         <div
           key={char.id}
           className="character"
@@ -37,7 +39,7 @@ function Hiroba({ characters }) {
         bottom: `${offset}px`
       }}
     >
-      {msg}
+      {msg.text}
     </div>
   );
 })}

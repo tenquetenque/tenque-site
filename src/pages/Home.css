@@ -20,6 +20,9 @@
   aspect-ratio: 2 / 2.5; /* ←この比率が「ちょうどいい形」 */
 
   position: relative;
+   width: 100%;
+
+  aspect-ratio: 12 / 9; /* ←ここ！！ */
   overflow: hidden;
   border-radius: 10px;
 
@@ -38,7 +41,7 @@
 
 /* 右側UI */
 .side-ui {
-  width: 300px; /* ←少し広げて見やすく */
+  width: 140px; /* ←少し広げて見やすく */
   display: flex;
   margin-top: vh;
   flex-direction: column;
@@ -74,7 +77,7 @@
 
 /* UIを上に固定 */
 .side-ui {
-  width: 180px;
+  width: 120px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -85,8 +88,33 @@
   color: black;
 }
 .chat-box {
+  width: 120px; /* ←char-uiと同じにする */
   display: flex;
   flex-direction: column;   /* ←縦にする */
   align-items: flex-end;    /* ←右揃え */
   gap: 6px;
+}
+.chat-box input {
+  width: 100%;
+}
+.chat-box + button {
+  display: block;
+  margin-left: auto; /* ←これで右寄せ */
+}
+.chat-box button {
+  border: 1.5px solid #000;   /* ←少し細く */
+  border-radius: 6px;
+  padding: 3px 8px;           /* ←小さく！ */
+  font-size: 12px;            /* ←コンパクト */
+  background: white;
+color: black;
+  box-shadow: 1px 1px 0px #000; /* ←軽めの影 */
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+
+.chat-box button:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
 }

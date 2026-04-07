@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./CharacterUI.css";
 
-import img1 from "../assets/characters/オーラありズラ.png";
+import img1 from "../assets/characters/aura-zura.png";
 import img2 from "../assets/characters/hosi1.png";
 import img3 from "../assets/characters/hosi2.png";
 import img4 from "../assets/characters/hosi3.png";

@@ -4,72 +4,94 @@ import Hiroba from "../components/Hiroba";
 import "./Home.css";
 
 function Home() {
-  const [player, setPlayer] = useState(null);
-  const [characters, setCharacters] = useState([]);
-  const [input, setInput] = useState("");
-  useEffect(() => {
-  const saved = localStorage.getItem("chars");
-  if (saved && saved !== "undefined") {
-    try {
-      setCharacters(JSON.parse(saved));
-    } catch (e) {
-      console.log("parse error");
-    }
-  }
-}, []);
-useEffect(() => {
-  if (characters.length > 0) {   // ←これ追加
-    localStorage.setItem("chars", JSON.stringify(characters));
-  }
-}, [characters]);
-  const [effect, setEffect] = useState(null);
+  // 🎵 音
+  const moveSoundRef = useRef(null);
+  const sendSoundRef = useRef(null);
 
-  const audioRef = useRef(null);
-
-  const playSound = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
+  const playMoveSound = () => {
+    if (moveSoundRef.current) {
+      moveSoundRef.current.currentTime = 0;
+      moveSoundRef.current.play();
     }
   };
 
- const handleSend = () => {
-  if (!player || !input) return;
-
-  const text = input;   // ←先に保存
-  setInput("");         // ←先に消す
-
-  setCharacters((prev) => {
-    const char = prev[0] || {
-      id: 1,
-      emoji: player.char,
-      name: player.name,
-      x: 50,
-      y: 60,
-      messages: []
-    };
-
-    const newMessages = [...char.messages, text];
-
-    if (newMessages.length > 5) {
-      newMessages.shift();
+  const playSendSound = () => {
+    if (sendSoundRef.current) {
+      sendSoundRef.current.currentTime = 0;
+      sendSoundRef.current.play();
     }
+  };
 
-    return [
-      {
-        ...char,
+  // 🧠 state
+  const [player, setPlayer] = useState(null);
+  const [characters, setCharacters] = useState([]);
+  const [input, setInput] = useState("");
+  const [effect, setEffect] = useState(null);
+
+  // 💾 保存
+  useEffect(() => {
+    const saved = localStorage.getItem("chars");
+    if (saved && saved !== "undefined") {
+      try {
+        setCharacters(JSON.parse(saved));
+      } catch (e) {
+        console.log("parse error");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (characters.length > 0) {
+      localStorage.setItem("chars", JSON.stringify(characters));
+    }
+  }, [characters]);
+
+  // 💬 送信
+  const handleSend = () => {
+    if (!player || !input) return;
+
+    const text = input;
+    setInput("");
+
+    setCharacters((prev) => {
+      const char = prev[0] || {
+        id: 1,
         emoji: player.char,
         name: player.name,
-        messages: newMessages
-      }
-    ];
-  });
+        x: 50,
+        y: 60,
+        messages: []
+      };
 
-  playSound();
-};
-const handleLogout = () => {
-  setPlayer(null);
-};
+      const newMessages = [
+        ...char.messages,
+        { text, time: Date.now() }
+      ];
+
+      const now = Date.now();
+      const filtered = newMessages.filter((msg) => {
+        return now - msg.time < 1000 * 60 * 60;
+      });
+
+      return [
+        {
+          ...char,
+          emoji: player.char,
+          name: player.name,
+          messages: filtered
+        }
+      ];
+    });
+
+    playSendSound(); // ←送信音
+  };
+
+  // 🚪 ログアウト
+  const handleLogout = () => {
+    setPlayer(null);
+    setCharacters([]);
+  };
+
   return (
     <div className="home">
 
@@ -83,105 +105,88 @@ const handleLogout = () => {
 
         {/* 広場 */}
         <div
-  className="hiroba"
-  onClick={(e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+          className="hiroba"
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
 
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-   setCharacters((prev) => {
-  const char = prev[0] || {
-    id: 1,
-    emoji: player?.char || "",
-    name: player?.name || "",
-    x: 50,
-    y: 60,
-    messages: []
-  };
+            setCharacters((prev) => {
+              const char = prev[0] || {
+                id: 1,
+                emoji: player?.char || "",
+                name: player?.name || "",
+                x: 50,
+                y: 60,
+                messages: []
+              };
 
-  return [
-    {
-      ...char,
-      emoji: player?.char || char.emoji,
-      name: player?.name || char.name,
-      x,
-      y
-    }
-  ];
-});
-    playSound();
-  }}
->
-   {effect && (
-    <div
-      className="sparkle"
-      style={{
-        left: `${effect.x}%`,
-        top: `${effect.y}%`
-      }}
-    />
-  )}
+              return [
+                {
+                  ...char,
+                  emoji: player?.char || char.emoji,
+                  name: player?.name || char.name,
+                  x,
+                  y
+                }
+              ];
+            });
 
-  <Hiroba characters={characters} />
-</div>
-
-        {/* UI（右側） */}
-        <div className="side-ui">
-
-          {/* キャラ選択 */}
-          <CharacterUI onChange={setPlayer} />
-
-{player && (
-  <button onClick={handleLogout}>
-    🚪
-  </button>
-)}
-          
-
-          {/* 決定後にだけ入力欄が出る */}
-          {player && (
-            <div className="chat-box">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="comment"
-              onKeyUp={(e) => {
-  if (e.key === "Enter") {
-    handleSend();
-  }
-}}
-              />
-              <button onClick={handleSend}>送信</button>
-            </div>
+            playMoveSound(); // ←移動音
+          }}
+        >
+          {effect && (
+            <div
+              className="sparkle"
+              style={{
+                left: `${effect.x}%`,
+                top: `${effect.y}%`
+              }}
+            />
           )}
+
+          <Hiroba characters={characters} />
         </div>
 
+        {/* UI */}
+        <div className="side-ui">
+          <CharacterUI onChange={setPlayer} />
+
+          {player && (
+            <>
+              <div className="chat-box">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="comment"
+                  onKeyUp={(e) => {
+                    if (e.key === "Enter") {
+                      handleSend();
+                    }
+                  }}
+                />
+                <button onClick={handleSend}>send</button>
+              </div>
+
+              <button onClick={handleLogout}>
+                Leaving🚪
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
-      {/* 音 */}
-      <audio ref={audioRef} src="/sounds/水の底から湧き出す泡の音.mp3" />
+      {/* 🎵 音 */}
+      <audio ref={moveSoundRef} src="/sounds/水の底から湧き出す泡の音.mp3" />
+      <audio ref={sendSoundRef} src="/sounds/ボイン.mp3" />
 
       {/* トピック（絶対残す） */}
-      <section className="block">
-        <h2>ニュース</h2>
-      </section>
-
-      <section className="block">
-        <h2>鑑賞記録</h2>
-      </section>
-
-      <section className="block">
-        <h2>作品</h2>
-      </section>
-
-      <section className="block">
-        <h2>通販ページ</h2>
-      </section>
-
-      <section className="block">
-        <h2>天★Que新聞</h2>
-      </section>
+      <section className="block"><h2>ニュース</h2></section>
+      <section className="block"><h2>鑑賞記録</h2></section>
+      <section className="block"><h2>作品</h2></section>
+      <section className="block"><h2>通販ページ</h2></section>
+      <section className="block"><h2>天★Que新聞</h2></section>
 
     </div>
   );

@@ -9,8 +9,16 @@
 /* 👇 iconボックス */
 .icon-box {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2列 */
+  grid-template-columns: repeat(2, 1fr);
   gap: 6px;
+
+  /* 👇追加 */
+  background: rgba(255,255,255,0.1); /* うっすら白 */
+  padding: 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px); /* ガラス感 */
+  background: rgba(255,255,255,0.2);
+border: 1px solid rgba(255,255,255,0.3);
 }
 
 /* 👇 アイコン */
@@ -59,8 +67,12 @@
   pointer-events: none;
 }
 .icon {
-  pointer-events: auto;
+  width: 50px;   /* ←40→50にUP */
+  height: 50px;
 }
 .char-ui button {
   align-self: flex-end; /* ←右寄せ */
+}
+.char-ui {
+  width: 120px;   /* ←固定にする！ */
 }
