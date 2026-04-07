@@ -107,34 +107,40 @@ function Home() {
         <div
           className="hiroba"
           onClick={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
+  const rect = e.currentTarget.getBoundingClientRect();
 
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-            setCharacters((prev) => {
-              const char = prev[0] || {
-                id: 1,
-                emoji: player?.char || "",
-                name: player?.name || "",
-                x: 50,
-                y: 60,
-                messages: []
-              };
+  setCharacters((prev) => {
+  const char = prev[0] || {
+    id: 1,
+    emoji: "",
+    name: "",
+    x: 50,
+    y: 60,
+    messages: []
+  };
 
-              return [
-                {
-                  ...char,
-                  emoji: player?.char || char.emoji,
-                  name: player?.name || char.name,
-                  x,
-                  y
-                }
-              ];
-            });
+    // 👇ここがポイント！！！！！！
+    if (player && player.char && player.name) {
+      return [
+        {
+          ...char,
+          emoji: player.char,
+          name: player.name,
+          x,
+          y
+        }
+      ];
+    }
 
-            playMoveSound(); // ←移動音
-          }}
+    return prev; // ←未確定なら何も起きない
+  });
+
+  playMoveSound();
+}}
+
         >
           {effect && (
             <div

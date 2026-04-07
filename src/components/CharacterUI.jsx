@@ -46,10 +46,7 @@ export default function CharacterUI({ onChange }) {
             src={c}
             className={`icon ${char === c ? "active" : ""}`}
             onClick={() => {
-  if (confirmed) {
-    setChar(c);
-    onChange({ name, char: c });
-  }
+  setChar(c);
 }}
           />
         ))}

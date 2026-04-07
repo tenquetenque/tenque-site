@@ -63,9 +63,6 @@ border: 1px solid rgba(255,255,255,0.3);
   color: black;
   pointer-events: auto;
 }
-.icon-box {
-  pointer-events: none;
-}
 .icon {
   width: 50px;   /* ←40→50にUP */
   height: 50px;
@@ -75,4 +72,8 @@ border: 1px solid rgba(255,255,255,0.3);
 }
 .char-ui {
   width: 120px;   /* ←固定にする！ */
+}
+.char-ui {
+  position: relative;
+  z-index: 100; /* ←強くする */
 }
