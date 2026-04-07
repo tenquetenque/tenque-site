@@ -124,3 +124,78 @@ color: black;
 .sparkle {
   pointer-events: none;
 }
+/* 📱 スマホ用 */
+@media (max-width: 768px) {
+
+  .hiroba-wrapper {
+    flex-direction: column; /* ←縦にする */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hiroba {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto; /* ←中央に固定 */
+  aspect-ratio: 12 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+  .side-ui {
+    width: 100%;       /* ←下に広げる */
+    align-items: center;
+  }
+
+  .char-ui {
+    width: 100%;       /* ←キャラ選択も広げる */
+    max-width: 300px;
+  }
+
+  .chat-box {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .chat-box input {
+    width: 100%;
+  }
+}
+/* 📱スマホ用 */
+@media (max-width: 768px) {
+
+  .icon-box {
+    display: flex;           /* ←横並び */
+    overflow-x: auto;        /* ←横スクロール */
+    gap: 10px;
+
+    padding: 10px;
+  }
+
+  .icon {
+    flex-shrink: 0;          /* ←縮まない */
+    width: 60px;
+    height: 60px;
+  }
+
+  .char-ui {
+    width: 100%;
+    max-width: none;
+  }
+}
+@media (max-width: 768px) {
+
+  .hiroba-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .side-ui {
+    width: 100%;
+    align-items: center;
+  }
+}
+body {
+  margin: 0;
+}
