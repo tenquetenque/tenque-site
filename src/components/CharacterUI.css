@@ -42,3 +42,25 @@
 .input-group input {
   padding: 4px;
 }
+.input-group {
+  position: relative;
+  z-index: 20;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #999;
+  background: white;
+  color: black;
+  pointer-events: auto;
+}
+.icon-box {
+  pointer-events: none;
+}
+.icon {
+  pointer-events: auto;
+}
+.char-ui button {
+  align-self: flex-end; /* ←右寄せ */
+}

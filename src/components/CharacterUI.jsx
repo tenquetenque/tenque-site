@@ -25,16 +25,15 @@ export default function CharacterUI({ onChange }) {
 
   const [char, setChar] = useState(characters[0]);
   const [name, setName] = useState("");
-  const [talk, setTalk] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
 
   function apply(){
-    onChange({
-      name,
-      char,
-      message: talk
-    });
-    setTalk("");
-  }
+  onChange({
+    name,
+    char
+  });
+  setConfirmed(true); // ←これ追加
+}
 
   return (
     <div className="char-ui">
@@ -46,7 +45,12 @@ export default function CharacterUI({ onChange }) {
             key={i}
             src={c}
             className={`icon ${char === c ? "active" : ""}`}
-            onClick={()=>setChar(c)}
+            onClick={() => {
+  if (confirmed) {
+    setChar(c);
+    onChange({ name, char: c });
+  }
+}}
           />
         ))}
       </div>
@@ -55,21 +59,18 @@ export default function CharacterUI({ onChange }) {
       <div className="input-group">
         <label>name</label>
         <input
-          value={name}
-          onChange={(e)=>setName(e.target.value)}
-        />
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+  type="text"
+  placeholder="Name here"
+/>
       </div>
 
-      {/* 👇 talk */}
-      <div className="input-group">
-        <label>talk</label>
-        <input
-          value={talk}
-          onChange={(e)=>setTalk(e.target.value)}
-        />
-      </div>
-
-      <button onClick={apply}>送信</button>
+      {!confirmed && (
+  <button type="button" onClick={apply}>
+    🌟
+  </button>
+)}
 
     </div>
   );

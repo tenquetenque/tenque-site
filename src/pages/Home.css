@@ -81,3 +81,12 @@
 
   align-self: flex-start; /* ←これ追加 */
 }
+.chat-box input {
+  color: black;
+}
+.chat-box {
+  display: flex;
+  flex-direction: column;   /* ←縦にする */
+  align-items: flex-end;    /* ←右揃え */
+  gap: 6px;
+}
