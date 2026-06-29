@@ -1,9 +1,18 @@
+import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
 import CharacterUI from "../components/CharacterUI";
 import { useState, useRef, useEffect } from "react";
 import Hiroba from "../components/Hiroba";
 import "./Home.css";
+import { db } from "../firebase";
+
+
 
 function Home() {
+  const myId =
+  localStorage.getItem("myId") ||
+  crypto.randomUUID();
+
+localStorage.setItem("myId", myId);
   // 🎵 音
   const moveSoundRef = useRef(null);
   const sendSoundRef = useRef(null);
@@ -39,7 +48,35 @@ function Home() {
       }
     }
   }, []);
+  useEffect(() => {
+  const unsubscribe = onSnapshot(
+    collection(db, "characters"),
+    (snapshot) => {
+      const list = snapshot.docs.map((doc) => doc.data());
 
+      const map = {};
+
+      list.forEach((msg) => {
+  if (!map[msg.name] || msg.time > map[msg.name].time) {
+    map[msg.name] = msg;
+  }
+});
+
+      const chars = Object.values(map).map((msg, i) => ({
+        id: i,
+        emoji: msg.emoji,
+        name: msg.name,
+        x: msg.x + i * 2,
+        y: msg.y + i * 2,
+       messages: msg.messages || []
+      }));
+
+      setCharacters(chars);
+    }
+  );
+
+  return () => unsubscribe();
+}, []);
   useEffect(() => {
     if (characters.length > 0) {
       localStorage.setItem("chars", JSON.stringify(characters));
@@ -47,11 +84,34 @@ function Home() {
   }, [characters]);
 
   // 💬 送信
-  const handleSend = () => {
+  const handleSend = async () => {
+   console.log("送信ボタン押された");
     if (!player || !input) return;
 
     const text = input;
     setInput("");
+   
+    // 👇 Firebaseに保存！！！！
+    console.log("Firebase送信直前");
+ const myChar = characters.find(c => c.name === player.name);
+
+const newMessages = [
+  ...(myChar?.messages || []),
+  { text, time: Date.now() }
+];
+
+const now = Date.now();
+const filtered = newMessages.filter(msg => now - msg.time < 1000 * 60 * 60);
+
+await setDoc(doc(db, "characters", myId), {
+  uid: myId,
+  name: player.name,
+  emoji: player.char,
+  x: myChar?.x || 50,
+  y: myChar?.y || 60,
+  messages: filtered,
+  time: Date.now()
+});
 
     setCharacters((prev) => {
       const char = prev[0] || {
@@ -103,57 +163,43 @@ function Home() {
       {/* 広場＋UI */}
       <div className="hiroba-wrapper">
 
-        {/* 広場 */}
-        <div
-          className="hiroba"
-          onClick={(e) => {
-  const rect = e.currentTarget.getBoundingClientRect();
+       {/* 広場 */}
+<div
+  className="hiroba"
+  onClick={async (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
 
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-  setCharacters((prev) => {
-  const char = prev[0] || {
-    id: 1,
-    emoji: "",
-    name: "",
-    x: 50,
-    y: 60,
-    messages: []
-  };
+    playMoveSound();
 
-    // 👇ここがポイント！！！！！！
-    if (player && player.char && player.name) {
-      return [
-        {
-          ...char,
-          emoji: player.char,
-          name: player.name,
-          x,
-          y
-        }
-      ];
+    if (player) {
+      const myChar = characters.find(c => c.name === player.name);
+
+      await setDoc(doc(db, "characters", myId), {
+        name: player.name,
+        emoji: player.char,
+        x,
+        y,
+        messages: myChar?.messages || [],
+        time: Date.now()
+      });
     }
+  }}
+>
+  {effect && (
+    <div
+      className="sparkle"
+      style={{
+        left: `${effect.x}%`,
+        top: `${effect.y}%`
+      }}
+    />
+  )}
 
-    return prev; // ←未確定なら何も起きない
-  });
-
-  playMoveSound();
-}}
-
-        >
-          {effect && (
-            <div
-              className="sparkle"
-              style={{
-                left: `${effect.x}%`,
-                top: `${effect.y}%`
-              }}
-            />
-          )}
-
-          <Hiroba characters={characters} />
-        </div>
+  <Hiroba characters={characters} />
+</div>
 
         {/* UI */}
         <div className="side-ui">
@@ -185,7 +231,7 @@ function Home() {
 
       {/* 🎵 音 */}
       <audio ref={moveSoundRef} src="/sounds/水の底から湧き出す泡の音.mp3" />
-      <audio ref={sendSoundRef} src="/sounds/ボイン.mp3" />
+      <audio ref={sendSoundRef} src="/sounds/boin.mp3" />
 
       {/* トピック（絶対残す） */}
       <section className="block"><h2>ニュース</h2></section>
