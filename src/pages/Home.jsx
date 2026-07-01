@@ -1,3 +1,4 @@
+import { updateDoc } from "firebase/firestore";
 import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
 import CharacterUI from "../components/CharacterUI";
 import { useState, useRef, useEffect } from "react";
@@ -37,39 +38,24 @@ localStorage.setItem("myId", myId);
   const [input, setInput] = useState("");
   const [effect, setEffect] = useState(null);
 
-  // 💾 保存
-  useEffect(() => {
-    const saved = localStorage.getItem("chars");
-    if (saved && saved !== "undefined") {
-      try {
-        setCharacters(JSON.parse(saved));
-      } catch (e) {
-        console.log("parse error");
-      }
-    }
-  }, []);
-  useEffect(() => {
+
+ useEffect(() => {
   const unsubscribe = onSnapshot(
     collection(db, "characters"),
     (snapshot) => {
-      const list = snapshot.docs.map((doc) => doc.data());
+      const chars = snapshot.docs.map((doc) => {
+        const msg = doc.data();
 
-      const map = {};
-
-      list.forEach((msg) => {
-  if (!map[msg.name] || msg.time > map[msg.name].time) {
-    map[msg.name] = msg;
-  }
-});
-
-      const chars = Object.values(map).map((msg, i) => ({
-        id: i,
-        emoji: msg.emoji,
-        name: msg.name,
-        x: msg.x + i * 2,
-        y: msg.y + i * 2,
-       messages: msg.messages || []
-      }));
+        return {
+          id: doc.id,
+          uid: msg.uid,
+          emoji: msg.emoji,
+          name: msg.name,
+          x: msg.x ?? 50,
+          y: msg.y ?? 50,
+          messages: msg.messages || []
+        };
+      });
 
       setCharacters(chars);
     }
@@ -77,6 +63,7 @@ localStorage.setItem("myId", myId);
 
   return () => unsubscribe();
 }, []);
+
   useEffect(() => {
     if (characters.length > 0) {
       localStorage.setItem("chars", JSON.stringify(characters));
@@ -93,7 +80,7 @@ localStorage.setItem("myId", myId);
    
     // 👇 Firebaseに保存！！！！
     console.log("Firebase送信直前");
- const myChar = characters.find(c => c.name === player.name);
+ const myChar = characters.find(c => c.uid === myId);
 
 const newMessages = [
   ...(myChar?.messages || []),
@@ -103,46 +90,10 @@ const newMessages = [
 const now = Date.now();
 const filtered = newMessages.filter(msg => now - msg.time < 1000 * 60 * 60);
 
-await setDoc(doc(db, "characters", myId), {
-  uid: myId,
-  name: player.name,
-  emoji: player.char,
-  x: myChar?.x || 50,
-  y: myChar?.y || 60,
+await updateDoc(doc(db, "characters", myId), {
   messages: filtered,
   time: Date.now()
 });
-
-    setCharacters((prev) => {
-      const char = prev[0] || {
-        id: 1,
-        emoji: player.char,
-        name: player.name,
-        x: 50,
-        y: 60,
-        messages: []
-      };
-
-      const newMessages = [
-        ...char.messages,
-        { text, time: Date.now() }
-      ];
-
-      const now = Date.now();
-      const filtered = newMessages.filter((msg) => {
-        return now - msg.time < 1000 * 60 * 60;
-      });
-
-      return [
-        {
-          ...char,
-          emoji: player.char,
-          name: player.name,
-          messages: filtered
-        }
-      ];
-    });
-
     playSendSound(); // ←送信音
   };
 
@@ -156,10 +107,14 @@ await setDoc(doc(db, "characters", myId), {
     <div className="home">
 
       {/* タイトル */}
-      <section className="hero">
-        <h2>天★Que広場</h2>
-      </section>
+     <section className="hero">
+  <h1>天★Que</h1>
+  <p>鑑賞体験を鑑賞するアートユニット</p>
+</section>
 
+<section className="block">
+  <h2>天★Que広場</h2>
+</section>
       {/* 広場＋UI */}
       <div className="hiroba-wrapper">
 
@@ -167,6 +122,7 @@ await setDoc(doc(db, "characters", myId), {
 <div
   className="hiroba"
   onClick={async (e) => {
+    console.log("click fired", player, myId);
     const rect = e.currentTarget.getBoundingClientRect();
 
     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -175,16 +131,21 @@ await setDoc(doc(db, "characters", myId), {
     playMoveSound();
 
     if (player) {
-      const myChar = characters.find(c => c.name === player.name);
+     const myChar = characters.find(c => c.uid === myId) || {
+  x: 50,
+  y: 60,
+  messages: []
+};
 
-      await setDoc(doc(db, "characters", myId), {
-        name: player.name,
-        emoji: player.char,
-        x,
-        y,
-        messages: myChar?.messages || [],
-        time: Date.now()
-      });
+await setDoc(doc(db, "characters", myId), {
+  uid: myId,
+  name: player.name,
+  emoji: player.emoji,
+  x,
+  y,
+  messages: myChar?.messages || [],
+  time: Date.now()
+}, { merge: true });
     }
   }}
 >

@@ -1,3 +1,4 @@
+import "./Hiroba.css"; 
 function Hiroba({ characters }) {
   return (
     <div className="hiroba-container">
@@ -5,13 +6,16 @@ function Hiroba({ characters }) {
   .filter((char) => char.emoji && char.name) // ←これ追加
   .map((char) => (
         <div
-          key={char.id}
-          className="character"
-          style={{
-            left: `${char.x}%`,
-            top: `${char.y}%`,
-          }}
-        >
+  key={char.id}
+  className="character"
+  style={{
+    position: "absolute",
+   left: `${char.x ?? 50}%`,
+top: `${char.y ?? 50}%`
+
+  }}
+>
+
           {char.emoji ? (
   <img
   src={char.emoji}
@@ -51,4 +55,3 @@ function Hiroba({ characters }) {
 }
 
 export default Hiroba;
-import "./Hiroba.css"; // ←これある？
