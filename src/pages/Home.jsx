@@ -105,15 +105,14 @@ await updateDoc(doc(db, "characters", myId), {
 
   // 🚪 ログアウト
   const handleLogout = async () => {
- 
-  await deleteDoc(doc(db, "characters", myId));
-
+  setPlayer(null);
   
-  localStorage.removeItem("myId");
+   localStorage.removeItem("myId");
   localStorage.removeItem("chars");
 
+  await deleteDoc(doc(db, "characters", myId));
  
-  setPlayer(null);
+
 };
 
   return (
