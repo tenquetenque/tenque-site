@@ -6,7 +6,7 @@ function Hiroba({ characters }) {
   .filter((char) => char.emoji && char.name) // ←これ追加
   .map((char) => (
         <div
-  key={char.id}
+  key={char.uid}
   className="character"
   style={{
     position: "absolute",

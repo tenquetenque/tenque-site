@@ -44,20 +44,21 @@ localStorage.setItem("myId", myId);
     collection(db, "characters"),
     (snapshot) => {
       const chars = snapshot.docs.map((doc) => {
-        const msg = doc.data();
+  const msg = doc.data();
 
-        return {
-          id: doc.id,
-          uid: msg.uid,
-          emoji: msg.emoji,
-          name: msg.name,
-          x: msg.x ?? 50,
-          y: msg.y ?? 50,
-          messages: msg.messages || []
-        };
-      });
+  return {
+    id: doc.id,
+    uid: msg.uid,
+    emoji: msg.emoji,
+    name: msg.name,
+    x: msg.x ?? 50,
+    y: msg.y ?? 50,
+    messages: msg.messages || []
+  };
+});
 
-      setCharacters(chars);
+console.table(chars);
+setCharacters(chars);
     }
   );
 
@@ -122,7 +123,7 @@ await updateDoc(doc(db, "characters", myId), {
 <div
   className="hiroba"
   onClick={async (e) => {
-    console.log("click fired", player, myId);
+    console.log("click fired", player);
     const rect = e.currentTarget.getBoundingClientRect();
 
     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -140,7 +141,7 @@ await updateDoc(doc(db, "characters", myId), {
 await setDoc(doc(db, "characters", myId), {
   uid: myId,
   name: player.name,
-  emoji: player.emoji,
+  emoji: player.char,
   x,
   y,
   messages: myChar?.messages || [],
