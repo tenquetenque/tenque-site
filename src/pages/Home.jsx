@@ -223,7 +223,15 @@ await setDoc(doc(db, "characters", myId), {
 
       {/* トピック（絶対残す） */}
       <section className="block"><h2>ニュース</h2></section>
-      <section className="block"><h2>鑑賞記録</h2></section>
+     <section
+  className="block"
+  onClick={() => {
+    window.open("https://tenque-kansho.netlify.app", "_blank");
+  }}
+  style={{ cursor: "pointer" }}
+>
+  <h2>鑑賞記録</h2>
+</section>
       <section className="block"><h2>作品</h2></section>
       <section className="block"><h2>通販ページ</h2></section>
       <section className="block"><h2>天★Que新聞</h2></section>
