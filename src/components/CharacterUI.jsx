@@ -27,12 +27,15 @@ export default function CharacterUI({ onChange, player }) {
   const [name, setName] = useState("");
   const [confirmed, setConfirmed] = useState(false);
 
-  function apply(){
+  function apply() {
+  console.log("apply called");
+
   onChange({
     name,
     char
   });
-  setConfirmed(true); // ←これ追加
+
+  setConfirmed(true);
 }
 
   return (

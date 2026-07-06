@@ -41,6 +41,11 @@ localStorage.setItem("myId", myId);
 
   // 🧠 state
   const [player, setPlayer] = useState(null);
+
+  useEffect(() => {
+  console.log("player changed:", player);
+}, [player]);
+
   const [characters, setCharacters] = useState([]);
   const [input, setInput] = useState("");
   const [effect, setEffect] = useState(null);
@@ -89,17 +94,23 @@ localStorage.setItem("myId", myId);
     console.log("Firebase送信直前");
  const myChar = characters.find(c => c.uid === myId);
 
-const newMessages = [
-  ...(myChar?.messages || []),
-  { text, time: Date.now() }
-];
-
 const now = Date.now();
-const filtered = newMessages.filter(msg => now - msg.time < 1000 * 60 * 60);
+
+const oldMessages = (myChar?.messages || []).filter(
+  (msg) => now - msg.time < 1000 * 60 * 60
+);
+
+const filtered = [
+  ...oldMessages,
+  {
+    text,
+    time: now,
+  },
+].slice(-6);
 
 await updateDoc(doc(db, "characters", myId), {
   messages: filtered,
-  time: Date.now()
+  time: now,
 });
     playSendSound(); 
     resetLogoutTimer();
@@ -165,7 +176,6 @@ await setDoc(doc(db, "characters", myId), {
   emoji: player.char,
   x,
   y,
-  messages: myChar?.messages || [],
   time: Date.now()
 }, { merge: true });
     }
@@ -202,7 +212,6 @@ await setDoc(doc(db, "characters", myId), {
         emoji: newPlayer.char,
         x: myChar?.x ?? 50,
         y: myChar?.y ?? 60,
-        messages: myChar?.messages ?? [],
         time: Date.now()
       },
       { merge: true }
