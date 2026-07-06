@@ -187,9 +187,23 @@ await setDoc(doc(db, "characters", myId), {
         {/* UI */}
         <div className="side-ui">
          <CharacterUI
-  onChange={(newPlayer) => {
+  onChange={async (newPlayer) => {
     setPlayer(newPlayer);
     resetLogoutTimer();
+
+    await setDoc(
+      doc(db, "characters", myId),
+      {
+        uid: myId,
+        name: newPlayer.name,
+        emoji: newPlayer.char,
+        x: 50,
+        y: 60,
+        messages: [],
+        time: Date.now()
+      },
+      { merge: true }
+    );
   }}
 />
 
