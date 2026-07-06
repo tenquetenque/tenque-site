@@ -72,6 +72,7 @@ export default function CharacterUI({ onChange, player }) {
   }}
   type="text"
   placeholder="Name here"
+  disabled={confirmed}
 />
       </div>
 

@@ -77,3 +77,11 @@ border: 1px solid rgba(255,255,255,0.3);
   position: relative;
   z-index: 100; /* ←強くする */
 }
+
+.input-group input:disabled {
+  background: #eee;
+  color: #666;
+  cursor: default;
+}
+
+}
