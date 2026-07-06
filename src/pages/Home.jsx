@@ -187,9 +187,12 @@ await setDoc(doc(db, "characters", myId), {
         {/* UI */}
         <div className="side-ui">
          <CharacterUI
+  player={player}
   onChange={async (newPlayer) => {
     setPlayer(newPlayer);
     resetLogoutTimer();
+
+    const myChar = characters.find(c => c.uid === myId);
 
     await setDoc(
       doc(db, "characters", myId),
@@ -197,9 +200,9 @@ await setDoc(doc(db, "characters", myId), {
         uid: myId,
         name: newPlayer.name,
         emoji: newPlayer.char,
-        x: 50,
-        y: 60,
-        messages: [],
+        x: myChar?.x ?? 50,
+        y: myChar?.y ?? 60,
+        messages: myChar?.messages ?? [],
         time: Date.now()
       },
       { merge: true }

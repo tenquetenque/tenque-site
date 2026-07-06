@@ -16,7 +16,7 @@ import img12 from "../assets/characters/hosi11.png";
 import img13 from "../assets/characters/hosi12.png";
 import img14 from "../assets/characters/hosi13.png";
 
-export default function CharacterUI({ onChange }) {
+export default function CharacterUI({ onChange, player }) {
 
   const characters = [
     img1,img2,img3,img4,img5,img6,img7,
@@ -47,6 +47,13 @@ export default function CharacterUI({ onChange }) {
             className={`icon ${char === c ? "active" : ""}`}
             onClick={() => {
   setChar(c);
+
+  if (player) {
+    onChange({
+      name,
+      char: c
+    });
+  }
 }}
           />
         ))}
