@@ -1,5 +1,11 @@
-import { updateDoc } from "firebase/firestore";
-import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  onSnapshot,
+  updateDoc,
+  deleteDoc
+} from "firebase/firestore";
 import CharacterUI from "../components/CharacterUI";
 import { useState, useRef, useEffect } from "react";
 import Hiroba from "../components/Hiroba";
@@ -44,21 +50,20 @@ localStorage.setItem("myId", myId);
     collection(db, "characters"),
     (snapshot) => {
       const chars = snapshot.docs.map((doc) => {
-  const msg = doc.data();
+        const msg = doc.data();
 
-  return {
-    id: doc.id,
-    uid: msg.uid,
-    emoji: msg.emoji,
-    name: msg.name,
-    x: msg.x ?? 50,
-    y: msg.y ?? 50,
-    messages: msg.messages || []
-  };
-});
+        return {
+          id: doc.id,
+          uid: msg.uid,
+          emoji: msg.emoji,
+          name: msg.name,
+          x: msg.x ?? 50,
+          y: msg.y ?? 50,
+          messages: msg.messages || []
+        };
+      });
 
-console.table(chars);
-setCharacters(chars);
+      setCharacters(chars);
     }
   );
 
@@ -99,10 +104,17 @@ await updateDoc(doc(db, "characters", myId), {
   };
 
   // 🚪 ログアウト
-  const handleLogout = () => {
-    setPlayer(null);
-    setCharacters([]);
-  };
+  const handleLogout = async () => {
+ 
+  await deleteDoc(doc(db, "characters", myId));
+
+  
+  localStorage.removeItem("myId");
+  localStorage.removeItem("chars");
+
+ 
+  setPlayer(null);
+};
 
   return (
     <div className="home">
