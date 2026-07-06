@@ -9,7 +9,7 @@ function Header() {
   const menuItems = [
     { name: "天★Que広場", path: "/#hiroba" },
     { name: "ニュース", path: "/news" },
-    { name: "鑑賞記録", path: "/record" },
+    { name: "鑑賞記録", path: "https://tenque-kansho.netlify.app" },
     { name: "作品", path: "/works" },
     { name: "通販ページ", path: "/shop" },
     { name: "天★Que新聞", path: "/newspaper" },
