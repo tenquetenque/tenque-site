@@ -23,6 +23,7 @@ localStorage.setItem("myId", myId);
   // 🎵 音
   const moveSoundRef = useRef(null);
   const sendSoundRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const playMoveSound = () => {
     if (moveSoundRef.current) {
@@ -100,7 +101,8 @@ await updateDoc(doc(db, "characters", myId), {
   messages: filtered,
   time: Date.now()
 });
-    playSendSound(); // ←送信音
+    playSendSound(); 
+    resetLogoutTimer();
   };
 
   // 🚪 ログアウト
@@ -113,6 +115,13 @@ await updateDoc(doc(db, "characters", myId), {
   await deleteDoc(doc(db, "characters", myId));
  
 
+};
+const resetLogoutTimer = () => {
+  clearTimeout(timeoutRef.current);
+
+  timeoutRef.current = setTimeout(() => {
+    handleLogout();
+  }, 1000 * 60 * 60); // 60分
 };
 
   return (
@@ -141,6 +150,7 @@ await updateDoc(doc(db, "characters", myId), {
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
     playMoveSound();
+    resetLogoutTimer();
 
     if (player) {
      const myChar = characters.find(c => c.uid === myId) || {
@@ -176,7 +186,12 @@ await setDoc(doc(db, "characters", myId), {
 
         {/* UI */}
         <div className="side-ui">
-          <CharacterUI onChange={setPlayer} />
+         <CharacterUI
+  onChange={(newPlayer) => {
+    setPlayer(newPlayer);
+    resetLogoutTimer();
+  }}
+/>
 
           {player && (
             <>
