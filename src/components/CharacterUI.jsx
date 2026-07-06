@@ -75,6 +75,15 @@ export default function CharacterUI({ onChange, player }) {
   disabled={confirmed}
 />
       </div>
+     {!confirmed && (
+  <button
+    type="button"
+    className="login-button"
+    onClick={apply}
+  >
+    広場へ入る
+  </button>
+)}
 
     </div>
   );
