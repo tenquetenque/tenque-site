@@ -55,19 +55,18 @@ export default function CharacterUI({ onChange }) {
       {/* 👇 name */}
       <div className="input-group">
         <label>name</label>
-        <input
+       <input
   value={name}
   onChange={(e) => setName(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter" && name.trim() !== "") {
+      apply();
+    }
+  }}
   type="text"
   placeholder="Name here"
 />
       </div>
-
-      {!confirmed && (
-  <button type="button" onClick={apply}>
-    🌟
-  </button>
-)}
 
     </div>
   );
