@@ -37,7 +37,7 @@
   transform: translateX(-50%);
   filter: blur(2px);
 }
-background-size: 110%;
+
 .character {
   position: absolute;
   z-index: 5;
