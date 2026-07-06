@@ -34,11 +34,23 @@ function Header() {
       </div>
 
       <nav className="nav">
-        {menuItems.map((item, index) => (
-          <Link key={index} to={item.path} className="nav-item">
-            {item.name}
-          </Link>
-        ))}
+       {menuItems.map((item, index) =>
+  item.path.startsWith("http") ? (
+    <a
+      key={index}
+      href={item.path}
+      className="nav-item"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {item.name}
+    </a>
+  ) : (
+    <Link key={index} to={item.path} className="nav-item">
+      {item.name}
+    </Link>
+  )
+)}
       </nav>
 
       <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
@@ -47,11 +59,23 @@ function Header() {
 
       {isOpen && (
         <div className="menu">
-          {menuItems.map((item, index) => (
-            <Link key={index} to={item.path} className="menu-item">
-              {item.name}
-            </Link>
-          ))}
+          {menuItems.map((item, index) =>
+  item.path.startsWith("http") ? (
+    <a
+      key={index}
+      href={item.path}
+      className="menu-item"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {item.name}
+    </a>
+  ) : (
+    <Link key={index} to={item.path} className="menu-item">
+      {item.name}
+    </Link>
+  )
+)}
         </div>
       )}
     </header>
