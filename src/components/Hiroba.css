@@ -47,23 +47,31 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: calc(100% + 10px);
-  background-color: white !important; /* ←強制 */
+  background-color: white !important;
   color: black;
 
   padding: 6px 10px;
   border-radius: 16px;
-
   font-size: 12px;
   white-space: nowrap;
 
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   z-index: 10;
   animation: fadeout 4s forwards;
-  @keyframes fadeout {
-  0% { opacity: 1; }
-  70% { opacity: 1; }
-  100% { opacity: 0; }
 }
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 
