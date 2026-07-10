@@ -118,7 +118,10 @@ await updateDoc(doc(db, "characters", myId), {
 
   // 🚪 ログアウト
   const handleLogout = async () => {
+  console.log("handleLogout実行");
+
   setPlayer(null);
+
   
    localStorage.removeItem("myId");
   localStorage.removeItem("chars");
@@ -132,8 +135,9 @@ const resetLogoutTimer = () => {
 
   timeoutRef.current = setTimeout(() => {
     handleLogout();
-  }, 1000 * 60 * 60); // 60分
+}, 1000 * 60 * 60);
 };
+
 
   return (
     <div className="home">
