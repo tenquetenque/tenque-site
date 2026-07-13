@@ -1,8 +1,14 @@
 .home {
-  background: #0a0a0a;
+  background-image: url("/images/IMG_4115.GIF");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
   color: white;
   padding: 20px;
 }
+
 
 /* タイトル */
 .hero {
@@ -64,11 +70,14 @@
 
 /* 下のコンテンツ */
 .block {
-  background: #111;
+  background: rgba(20, 20, 30, 0.45);
+  backdrop-filter: blur(8px);
+
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 15px;
 }
+
 .hiroba-wrapper {
   display: flex;
   justify-content: center;
