@@ -149,14 +149,20 @@ const resetLogoutTimer = () => {
   <p>鑑賞体験を鑑賞するアートユニット</p>
 </section>
 
-<section className="block">
-  <h2>天★Que広場</h2>
-</section>
+
+<p className="hiroba-info">
+  キャラクターを選んで、名前を入力すると広場に参加できます。<br />
+  広場をクリックすると、キャラクターが移動します。
+</p>
+
+
+
       {/* 広場＋UI */}
       <div className="hiroba-wrapper">
 
        {/* 広場 */}
 <div
+  id="hiroba"
   className="hiroba"
   onClick={async (e) => {
     console.log("click fired", player);
@@ -310,7 +316,19 @@ await setDoc(doc(db, "characters", myId), {
       <audio ref={moveSoundRef} src="/sounds/水の底から湧き出す泡の音.mp3" />
       <audio ref={sendSoundRef} src="/sounds/boin.mp3" />
 
-      {/* トピック（絶対残す） */}
+     <section
+  className="block"
+  onClick={() => {
+    document.getElementById("hiroba").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }}
+  style={{ cursor: "pointer" }}
+>
+  <h2>天★Que広場</h2>
+</section>
+
       <section className="block"><h2>ニュース</h2></section>
      <section
   className="block"

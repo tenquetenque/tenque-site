@@ -4,11 +4,11 @@
 
   background-image: url("/images/hirobahaikei.jpg");
 
-  background-size: contain; /* ←ここ戻す */
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  background-color: #000; /* ←余白を黒にする（自然） */
+  background-color: transparent;
 }
 
 /* キャラ */
