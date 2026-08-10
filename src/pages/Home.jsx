@@ -11,6 +11,7 @@ import { useState, useRef, useEffect } from "react";
 import Hiroba from "../components/Hiroba";
 import "./Home.css";
 import { db } from "../firebase";
+import products from "../data/products";
 
 
 
@@ -246,6 +247,64 @@ await setDoc(doc(db, "characters", myId), {
           )}
         </div>
       </div>
+           {/* 🔥 今月のHOT商品 */}
+<section className="hot-products">
+  <h2>今月のHOT商品</h2>
+
+  <div className="hot-products-list">
+
+    {products
+      .filter((product) => product.hot)
+      .map((product) => (
+        <div
+          key={product.id}
+          className="hot-product"
+          onClick={() => {
+            window.location.href = `/shop/${product.code}`;
+          }}
+        >
+          <img
+            src={product.image}
+            alt={product.title}
+          />
+
+          <p>商品コード：{product.code}</p>
+        </div>
+      ))}
+
+    {/* 📰 天★Que新聞 創刊号 */}
+    <div
+      className="hot-product"
+      onClick={() => {
+        window.location.href = "/newspaper/1";
+      }}
+    >
+      <img
+        src="/images/tenkyupaper1samune.jpeg"
+        alt="天★Que新聞 創刊号"
+      />
+
+      <p>天★Que新聞 創刊号</p>
+    </div>
+
+    {/* 📰 天★Que新聞 02 */}
+    <div
+      className="hot-product"
+      onClick={() => {
+        window.location.href = "/newspaper/2";
+      }}
+    >
+      <img
+        src="/images/tenkyupaper2samune.jpeg"
+        alt="天★Que新聞 02"
+      />
+
+      <p>天★Que新聞 02</p>
+    </div>
+
+  </div>
+</section>
+
 
       {/* 🎵 音 */}
       <audio ref={moveSoundRef} src="/sounds/水の底から湧き出す泡の音.mp3" />
@@ -263,7 +322,15 @@ await setDoc(doc(db, "characters", myId), {
   <h2>鑑賞記録</h2>
 </section>
       <section className="block"><h2>作品</h2></section>
-      <section className="block"><h2>通販ページ</h2></section>
+     <section
+  className="block"
+  onClick={() => {
+    window.location.href = "/shop";
+  }}
+  style={{ cursor: "pointer" }}
+>
+  <h2>通販ページ</h2>
+</section>
       <section className="block"><h2>天★Que新聞</h2></section>
 
     </div>

@@ -1,0 +1,108 @@
+.newspaper-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 30px;
+  min-height: 100vh;
+  color: white;
+}
+
+.newspaper-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.newspaper-logo {
+  width: 100%;
+  max-width: 950px;
+  height: auto;
+  display: block;
+  margin: 0 auto 1px;
+}
+.newspaper-info-image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+
+.newspaper-header h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+.newspaper-description {
+  max-width: 1000px;
+  margin: 35px auto 0;
+  line-height: 1.9;
+  text-align: left;
+}
+
+
+.newspaper-header p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 新聞一覧 */
+
+.newspaper-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 45px;
+}
+
+.newspaper-item {
+  cursor: pointer;
+  text-align: center;
+}
+
+.newspaper-thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.newspaper-item:hover .newspaper-thumbnail {
+  transform: scale(1.03);
+}
+
+.newspaper-title {
+  margin-top: 15px;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.newspaper-date {
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* スマホ */
+
+@media (max-width: 700px) {
+
+  .newspaper-page {
+    padding: 30px 15px;
+  }
+
+  .newspaper-header h1 {
+    font-size: 2rem;
+  }
+
+  .newspaper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 15px;
+  }
+
+  .newspaper-title {
+    font-size: 13px;
+  }
+
+  .newspaper-date {
+    font-size: 11px;
+  }
+
+}
+
+
