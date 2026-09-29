@@ -10,8 +10,36 @@ function ProductDetail() {
     return <h1>商品が見つかりません。</h1>;
   }
 
+  // 🛒 カートに入れる
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct = cart.find(
+      (item) => item.code === product.code
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({
+        code: product.code,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(`${product.title}をカートに入れました！`);
+
+    window.location.href = "/cart";
+  };
+
   return (
     <div style={{ maxWidth: "900px", margin: "40px auto", padding: "20px" }}>
+      
       <img
         src={product.image}
         alt={product.title}
@@ -38,6 +66,7 @@ function ProductDetail() {
       </p>
 
       <button
+        onClick={handleAddToCart}
         style={{
           marginTop: "30px",
           width: "100%",
@@ -50,8 +79,9 @@ function ProductDetail() {
           cursor: "pointer",
         }}
       >
-        🛒 カートに入れる
+        購入手続きへ
       </button>
+
     </div>
   );
 }
